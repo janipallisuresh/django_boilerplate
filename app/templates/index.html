@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Copilot</title>
+</head>
+<body>
+    <h2>Ask Your Project</h2>
+
+    <input type="text" id="query" style="width:400px" placeholder="Enter your question">
+  
+    <button onclick="ask()">Ask</button>
+
+    <pre id="response" style="margin-top:20px;"></pre>
+
+    <script>
+        async function ask() {
+            const query = document.getElementById("query").value;
+
+            const res = await fetch("/ask", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ query })
+            });
+
+            const data = await res.json();
+            document.getElementById("response").innerText = data.response;
+        }
+    </script>
+</body>
+</html>
